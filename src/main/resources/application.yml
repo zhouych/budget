@@ -4,19 +4,22 @@ spring:
     
 server:
   #port: 2001
-  port: 2001
-  servlet:
-    context-path: /${spring.application.name}
+  port: 2002
+  # 没有必要使用以下配置
+  #servlet:
+  #  context-path: /${spring.application.name}
 
 eureka:
   client:
     service-url:
-      defaultZone: http://127.0.0.1:8000/eureka/
+      # 使用Eureka Server的集群环境
+      defaultZone: http://peer1:8001/eureka/,http://peer2:8002/eureka/,http://peer3:8003/eureka/
+  # 没有必要使用以下配置
   # 涉及到项目配置有server.servlet.context-path属性的相关处理
-  instance:
-    metadata-map:
-      management:
-        context-path: ${server.servlet.context-path}/actuator
-    health-check-url: http://127.0.0.1:${server.port}${server.servlet.context-path}/actuator/health
-    status-page-url: http://127.0.0.1:${server.port}${server.servlet.context-path}/actuator/info
-    home-page-url: http://127.0.0.1:${server.port}/
+  #instance:
+  #  metadata-map:
+  #    management:
+  #      context-path: ${server.servlet.context-path}/actuator
+  #  health-check-url: http://127.0.0.1:${server.port}${server.servlet.context-path}/actuator/health
+  #  status-page-url: http://127.0.0.1:${server.port}${server.servlet.context-path}/actuator/info
+  #  home-page-url: http://127.0.0.1:${server.port}/
